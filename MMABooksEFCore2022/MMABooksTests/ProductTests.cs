@@ -3,7 +3,7 @@ using System.Linq;
 using System;
 
 using NUnit.Framework;
-using MMABooksEFClasses.MarisModels;
+using MMABooksEFClasses.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace MMABooksTests

@@ -18,7 +18,7 @@ namespace MMABooksTests
         List<State>? states;
 
         [SetUp]
-        // Changed which stored procidure is used, because it wasn't restarting the table
+        // Changed which stored procedure is used, because it wasn't restarting the table
         // which caused some tests to fail.
         public void Setup()
         {
@@ -27,7 +27,6 @@ namespace MMABooksTests
         }
 
         [Test]
-        // After changeing the test not there is 53 instead of 52 states.
         public void GetAllTest()
         {
             states = dbContext.States.OrderBy(s => s.StateName).ToList();
