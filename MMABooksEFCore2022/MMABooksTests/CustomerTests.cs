@@ -31,6 +31,7 @@ namespace MMABooksTests
             Assert.AreEqual(696, customers.Count);
             Assert.AreEqual(157, customers[0].CustomerId);
             Assert.AreEqual("Abeyatunge, Derek", customers[0].Name);
+            Assert.AreEqual("1414 S. Dairy Ashford", customers[0].Address);
             Assert.AreEqual("North Chili", customers[0].City);
             Assert.AreEqual("NY", customers[0].State);
             Assert.AreEqual("14514", customers[0].ZipCode);
@@ -44,6 +45,7 @@ namespace MMABooksTests
             Assert.IsNotNull(c);
             Assert.AreEqual(157, c.CustomerId);
             Assert.AreEqual("Abeyatunge, Derek", c.Name);
+            Assert.AreEqual("1414 S. Dairy Ashford", c.Address);
             Assert.AreEqual("North Chili", c.City);
             Assert.AreEqual("NY", c.State);
             Assert.AreEqual("14514", c.ZipCode);
@@ -68,6 +70,10 @@ namespace MMABooksTests
         public void GetWithInvoicesTest()
         {
            // get the customer whose id is 20 and all of the invoices for that customer
+           c = dbContext.Customers.Include("Invoices").Where(c => c.CustomerId == 20).SingleOrDefault();
+            Assert.AreEqual(20, c.CustomerId);
+            Assert.AreEqual(3, c.Invoices.Count);
+            Console.WriteLine(c);
         }
 
         [Test]
@@ -90,19 +96,36 @@ namespace MMABooksTests
         [Test]
         public void DeleteTest()
         {
-
+            c = dbContext.Customers.Find(26);
+            dbContext.Customers.Remove(c);
+            dbContext.SaveChanges();
+            Assert.IsNull(dbContext.Customers.Find(26));
         }
 
         [Test]
         public void CreateTest()
         {
-            
+            c = new Customer();
+            c.Name = "Ryan Qwerty";
+            c.Address = "123 Walkaway Lane";
+            c.City = "Youngstown";
+            c.State = "OH";
+            c.ZipCode = "44501";
+            dbContext.Customers.Add(c);
+            dbContext.SaveChanges();
+            Assert.IsNotNull(dbContext.Customers.Where(c => c.Name.Equals("Ryan Qwerty")));
         }
 
         [Test]
         public void UpdateTest()
         {
-
+            c = dbContext.Customers.Find(30);
+            c.Name = "Andrew, Susan";
+            c.Address = "123 New Sheet Way";
+            dbContext.Customers.Update(c);
+            dbContext.SaveChanges();
+            Assert.AreEqual("Andrew, Susan", c.Name);
+            Assert.AreEqual("123 New Sheet Way", c.Address);
         }
 
         public void PrintAll(List<Customer> customers)
