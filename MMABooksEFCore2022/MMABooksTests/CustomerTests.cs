@@ -13,7 +13,7 @@ namespace MMABooksTests
     // Framework's ability to interact with
     // the database. This class specifically
     // tests these operations with the
-    // Customer table.
+    // Customers table.
     public class CustomerTests
     {
         // A instance of the MMABooksContext class,
@@ -25,7 +25,7 @@ namespace MMABooksTests
         // allowing its fields to be null.
         Customer? c;
         // A list that will be used to store 
-        // Customers for tests, with ? making
+        // Customer objects for tests, with ? making
         // this nullable allowing to be null.
         List<Customer>? customers;
 
@@ -34,7 +34,7 @@ namespace MMABooksTests
         // the usp_testingResetCustomer1Data,
         // usp_testingResetCusomer2Data, and
         // usp_testingResetCustomer3Data stored
-        // procedures to have the Customer table
+        // procedures to have the Customers table
         // in the database restart back to how it
         // was before a test.
         public void Setup()
@@ -48,7 +48,7 @@ namespace MMABooksTests
         [Test]
         // The GetAllTest method verifies the "read"
         // functionality of CRUD operations for the
-        // Customer table. It attempts to retrieve a
+        // Customers table. It attempts to retrieve a
         // full list of Customer records from the
         // Customers database table using ToList. The
         // initial Assert.AreEqual checks that the
@@ -73,11 +73,11 @@ namespace MMABooksTests
 
         [Test]
         // The GetByPrimaryKeyTest method verifies the "read" 
-        // functionality of CRUD operations for the Customer
+        // functionality of CRUD operations for the Customers
         // table. It attempts to retrieve a specific Customer
         // record from the Customers database table using its
-        // primary key with Find. The Assert.IsNotNull checks
-        // if the Find operation successfully retrieved the
+        // CustomerID primary key with Find. The Assert.IsNotNull
+        // checks if the Find operation successfully retrieved the
         // customer record. The following Assert.AreEqual
         // statements validate that the fields of the retrieved
         // Customer record match the expected values.
@@ -231,6 +231,9 @@ namespace MMABooksTests
             Assert.AreEqual("123 New Sheet Way", c.Address);
         }
 
+        // The PrintAll method is used for debugging purposes.
+        // It loops through a list of Customer objects and prints
+        // each Customer object to the console.
         public void PrintAll(List<Customer> customers)
         {
             foreach (Customer c in customers)
