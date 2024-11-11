@@ -210,12 +210,16 @@ namespace MMABooksTests
         // functionality of CRUD operations by testing
         // the ability to update a Customer record in
         // the database Customers table. We use Find
-        // with a CustomerID to receive a Customer
-        // record that is going to be updated, set some
-        // of the fields of the record to new values,
-        // then calling the Update method to mark this
-        // record as updated. With SaveChanges being
-        // 
+        // with a CustomerId to retrieve the Customer
+        // record that will be updated, modify specific
+        // fields of the record with new values, and then
+        // call the Update method to mark this record as updated.
+        // SaveChanges is called to commit this change, 
+        // updating the customer record in the database with
+        // the new data.
+        // Using Assert.AreEqual to compare the values of the
+        // updated record with the expected values, where 
+        // if they match, then the update was successful.
         public void UpdateTest()
         {
             c = dbContext.Customers.Find(30);
