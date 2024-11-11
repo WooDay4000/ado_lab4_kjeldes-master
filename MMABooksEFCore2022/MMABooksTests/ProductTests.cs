@@ -202,8 +202,8 @@ namespace MMABooksTests
         }
 
         // The PrintAll method is used for debugging purposes.
-        // It loops through a list of Customer objects and prints
-        // each Customer object to the console.
+        // It loops through a list of Project objects and prints
+        // each Project object to the console.
         public void PrintAll(List<Product> products)
         {
             foreach (Product p in products)

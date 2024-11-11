@@ -72,7 +72,7 @@ namespace MMABooksTests
             Assert.IsNull(dbContext.States.Find("HI"));
         }
 
-        
+
         [Test]
         public void CreateTest()
         {
@@ -94,7 +94,7 @@ namespace MMABooksTests
             s = dbContext.States.Find("OR");
             Assert.AreEqual("Ore", s.StateName);
         }
-        
+
         public void PrintAll(List<State> states)
         {
             foreach (State s in states)
