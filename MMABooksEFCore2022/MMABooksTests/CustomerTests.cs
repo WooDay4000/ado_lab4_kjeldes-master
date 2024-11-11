@@ -9,13 +9,34 @@ using Microsoft.EntityFrameworkCore;
 namespace MMABooksTests
 {
     [TestFixture]
+    // Tests for CRUD operations and Entity
+    // Framework's ability to interact with
+    // the database. This class specifically
+    // tests these operations with the
+    // Customer table.
     public class CustomerTests
     {
+        // A instance of the MMABooksContext class,
+        // used in Entity Framework interactions
+        // with the MMABooks.
         MMABooksContext dbContext;
+        // A Customer object used in tests.
+        // The ? marks it as nullable,
+        // allowing its fields to be null.
         Customer? c;
+        // A list that will be used to store 
+        // Customers for tests, with ? making
+        // this nullable allowing to be null.
         List<Customer>? customers;
-        // Goal of this is to make these tests.
+
         [SetUp]
+        // This will run before each test, running
+        // the usp_testingResetCustomer1Data,
+        // usp_testingResetCusomer2Data, and
+        // usp_testingResetCustomer3Data stored
+        // procedures to have the Customer table
+        // in the database restart back to how it
+        // was before a test.
         public void Setup()
         {
             dbContext = new MMABooksContext();
@@ -25,6 +46,18 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The GetAllTest method verifies the "read"
+        // functionality of CRUD operations for the
+        // Customer table. It attempts to retrieve a
+        // full list of Customer records from the
+        // Customers database table using ToList. The
+        // initial Assert.AreEqual checks that the
+        // number of retrieved records matches the
+        // expected count. The following Assert.AreEqual
+        // statements validate that the fields of the
+        // first Customer record in the list match the
+        // expected values, ensuring the data was retrieved
+        // accurately.
         public void GetAllTest()
         {
             customers = dbContext.Customers.OrderBy(c => c.Name).ToList();
@@ -39,6 +72,15 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The GetByPrimaryKeyTest method verifies the "read" 
+        // functionality of CRUD operations for the Customer
+        // table. It attempts to retrieve a specific Customer
+        // record from the Customers database table using its
+        // primary key with Find. The Assert.IsNotNull checks
+        // if the Find operation successfully retrieved the
+        // customer record. The following Assert.AreEqual
+        // statements validate that the fields of the retrieved
+        // Customer record match the expected values.
         public void GetByPrimaryKeyTest()
         {
             c = dbContext.Customers.Find(157);
@@ -53,6 +95,17 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The GetUsingWhere method verifies the "read"
+        // functionality of CRUD operations by testing
+        // the ability to filter Customer records. It 
+        // retrieves specific Customer records from the
+        // Customers table using the Where clause to select
+        // only those with "OR" in the State field. The initial 
+        // Assert.AreEqual checks that the correct number
+        // of records were returned based on the filter.
+        // The following Assert.AreEqual statements confirm
+        // that the properties of the first Customer in the
+        // list match the expected values.
         public void GetUsingWhere()
         {
             // get a list of all of the customers who live in OR
@@ -67,10 +120,19 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The GetWithInvoicesTest method verifies the "read"
+        // functionality of CRUD operations by testing the
+        // ability to retrieve a specific Customer record along
+        // with all related Invoice records using the Include
+        // method. This filters to retrieve only the Customer
+        // with a CustomerId of 20, alongside any invoices related
+        // to this customer. Using Assert.AreEqual to confirm that
+        // the correct Customer record was received, including
+        // expected number of related Invoices too.
         public void GetWithInvoicesTest()
         {
-           // get the customer whose id is 20 and all of the invoices for that customer
-           c = dbContext.Customers.Include("Invoices").Where(c => c.CustomerId == 20).SingleOrDefault();
+            // get the customer whose id is 20 and all of the invoices for that customer
+            c = dbContext.Customers.Include("Invoices").Where(c => c.CustomerId == 20).SingleOrDefault();
             Assert.AreEqual(20, c.CustomerId);
             Assert.AreEqual(3, c.Invoices.Count);
             Console.WriteLine(c);
@@ -94,6 +156,20 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The DeleteTest method verifies the "delete" 
+        // functionality of CRUD operations by testing 
+        // the ability to delete a specific Customer 
+        // record in the database Customers table. It
+        // uses Find to retrieve the customer record
+        // with the given CustomerId, then applies the
+        // Remove method to mark it for deletion in the
+        // database context. Finally, SaveChanges is
+        // called to commit the deletion, permanently
+        // removing the record from the database. 
+        // Using Assert.IsNull, Find is called again 
+        // to check if the record can still be retrieved. 
+        // If the result is null, it confirms the record 
+        // was successfully deleted.
         public void DeleteTest()
         {
             c = dbContext.Customers.Find(26);
@@ -103,6 +179,19 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The CreateTest method verifies the "create"
+        // functionality of CRUD operations by testing
+        // the ability to create a Customer record and
+        // add it to the database Customers table. Where
+        // the created customer object is called with the
+        // Add method to have it marked as created in the
+        // database context. With SaveChanges being called
+        // to commit the creation, having the created
+        // Customer record be added to the database. Using
+        // Assert.IsNotNull with Where to try and grab the
+        // newly created Customer record, where if the
+        // result isn't null then it was successfully
+        // created.
         public void CreateTest()
         {
             c = new Customer();
@@ -117,6 +206,16 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The UpdateTest method verifies the "update"
+        // functionality of CRUD operations by testing
+        // the ability to update a Customer record in
+        // the database Customers table. We use Find
+        // with a CustomerID to receive a Customer
+        // record that is going to be updated, set some
+        // of the fields of the record to new values,
+        // then calling the Update method to mark this
+        // record as updated. With SaveChanges being
+        // 
         public void UpdateTest()
         {
             c = dbContext.Customers.Find(30);

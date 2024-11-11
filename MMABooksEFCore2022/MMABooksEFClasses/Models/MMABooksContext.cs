@@ -5,6 +5,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace MMABooksEFClasses.Models
 {
+    // This DbContext represents a session with
+    // the MMABooks database. It allows querying
+    // and saving records, serving as the bridge 
+    // between the database schema and C# classes
+    // for Entity Framework interactions.
     public partial class MMABooksContext : DbContext
     {
         public MMABooksContext()
