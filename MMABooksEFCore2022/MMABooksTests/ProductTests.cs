@@ -26,7 +26,7 @@ namespace MMABooksTests
         Product? p;
         // A list that will be used to store 
         // Product objects for tests, with ? making
-        // this nullable allowing to be null.
+        // this nullable allowing this to be null.
         List<Product>? products;
 
         [SetUp]
@@ -111,6 +111,20 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The GetWithCalculatedFieldTest method verifies
+        // the "read" functionality of CRUD operations by
+        // testing the ability to retrieve only the ProductCode,
+        // UnitPrice, and OnHandQuantity fields of records from
+        // the database Product table, with each record also
+        // containing a calculated InventoryValue field, which
+        // is the UnitPrice times OnHandQuantity for the current
+        // product record. Using Assert.AreEqual to confirm that
+        // the correct number of Product records were received,
+        // it includes a foreach loop that writes each record
+        // to the console, allowing for manual verification that
+        // all records have only the selected fields with the
+        // current information, and that the calculated field
+        // has the correct amount based on the record state.
         public void GetWithCalculatedFieldTest()
         {
             // get a list of objects that include the productcode, unitprice, quantity and inventoryvalue

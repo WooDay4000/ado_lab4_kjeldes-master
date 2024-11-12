@@ -26,7 +26,7 @@ namespace MMABooksTests
         Customer? c;
         // A list that will be used to store 
         // Customer objects for tests, with ? making
-        // this nullable allowing to be null.
+        // this nullable allowing this to be null.
         List<Customer>? customers;
 
         [SetUp]
@@ -127,8 +127,8 @@ namespace MMABooksTests
         // method. This filters to retrieve only the Customer
         // with a CustomerId of 20, alongside any invoices related
         // to this customer. Using Assert.AreEqual to confirm that
-        // the correct Customer record was received, including
-        // expected number of related Invoices too.
+        // the correct Customer records were received, including
+        // the expected number of related Invoices too.
         public void GetWithInvoicesTest()
         {
             // get the customer whose id is 20 and all of the invoices for that customer
@@ -139,6 +139,19 @@ namespace MMABooksTests
         }
 
         [Test]
+        // The GetWithJoinTest method verifies the "read" functionality
+        // of CRUD operations by testing the ability to retrieve a list
+        // of Customer records along with related State information 
+        // using a Join operation. This Join links the Customers table
+        // to the States table based on the State field in the Customers
+        // table and the StateCode field in the States table. It selects
+        // the CustomerId, Name, and State fields from the Customers table
+        // and the StateName field from the States table.
+        // Using Assert.AreEqual to confirm that the expected 
+        // number of Customer records were received, and then it loops 
+        // through the list with a foreach to display each record in the
+        // console for manual verification of the retrieved data, 
+        // ensuring the Join operation was successful.
         public void GetWithJoinTest()
         {
             // get a list of objects that include the customer id, name, statecode and statename
