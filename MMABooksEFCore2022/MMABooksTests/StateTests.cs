@@ -149,7 +149,6 @@ namespace MMABooksTests
             Assert.IsNull(dbContext.States.Find("HI"));
         }
 
-
         [Test]
         // The CreateTest method verifies the "create"
         // functionality of CRUD operations by testing
